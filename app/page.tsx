@@ -7,7 +7,7 @@ import Spacer from "@/components/Spacer/Spacer";
 import Logo from "@/components/Logo/Logo";
 import * as Yup from "yup";
 import { Formik } from "formik";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 type FormDataType = {
@@ -35,24 +35,32 @@ const AdminPage = () => {
     setSuccess(false);
 
     try {
-      // TODO: Replace with your actual API call
-      // Example: const response = await fetch('/api/login', { method: 'POST', body: JSON.stringify(values) })
-      
-      // Mock login for now
       if (values.email && values.password) {
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/admin/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(values)
+        });
         
-        // Store token in localStorage
-        const mockToken = "mock_token_" + Date.now();
-        localStorage.setItem("SUPER_ADMIN_ACCESS_TOKEN", mockToken);
-        
-        setSuccess(true);
-        
-        // Redirect to dashboard after success
-        setTimeout(() => {
-          router.push("/admin/dashboard");
-        }, 2000);
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Invalid credentials");
+        }
+
+        const data = await response.json();
+        const realToken = data.payload || data.accessToken;
+
+        if (realToken) {
+          localStorage.setItem("SUPER_ADMIN_ACCESS_TOKEN", realToken);
+          setSuccess(true);
+          
+            router.push("/admin/dashboard");
+          
+        } else {
+          throw new Error("No token received from server");
+        }
+      } else {
+        throw new Error("Email and password are required");
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed");
@@ -64,15 +72,15 @@ const AdminPage = () => {
 
   return (
     <Formik
-      onSubmit={(values, actions) => {
-        handleLogin(values);
-        actions.resetForm();
-      }}
       initialValues={{
         email: "",
         password: "",
       }}
       validationSchema={LoginSchema}
+      onSubmit={(values, actions) => {
+        handleLogin(values);
+        actions.resetForm();
+      }}
     >
       {({ values, errors, handleSubmit, handleChange, touched }) => {
         return (
@@ -125,9 +133,7 @@ const AdminPage = () => {
             )}
 
             <Spacer height={20} />
-            {/* add logo */}
             <Logo />
-
             <Spacer height={25} />
 
             <CustomTextInput
@@ -141,11 +147,7 @@ const AdminPage = () => {
               placeholder="Password"
               onChange={handleChange("password")}
               value={values.password}
-              error={
-                touched.password && errors.password
-                  ? errors.password
-                  : ""
-              }
+              error={touched.password && errors.password ? errors.password : ""}
               disabled={false}
             />
 
