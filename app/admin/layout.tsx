@@ -40,55 +40,7 @@ const items:MenuItemType[] = [
     key: '1',
     icon: <LayoutDashboard size={18} />,
     label: 'Dashboard',
-     onClick: () => router.push("/site"),
-  },
-  {
-    key: '2',
-    icon: <Webcam size={18} />,
-    label: 'Live Cam',
-     onClick: () => router.push("/site/livecam"),
-  },
-   {
-    key: '3',
-    icon: <Users size={18} />,
-    label: 'Team',
-     onClick: () => router.push("/site/team"),
-  },
-  {
-    key: '4',
-    icon: <Toolbox size={18} />,
-    label: 'Equipment',
-     onClick: () => router.push("/site/equipment"),
-  },
-  {
-    key: '5',
-    icon: <Briefcase size={18} />,
-    label: 'Inventory',
-     onClick: () => router.push("/site/inventory"),
-  },
-  {
-    key: '6',
-    icon: <BookOpenText size={18} />,
-    label: 'Project Documentation',
-     onClick: () => router.push("/site/projectdocumentation"),
-  },
-  {
-    key: '7',
-    icon: <FolderArchive size={18} />,
-    label: 'Archives',
-     onClick: () => router.push("/site/archives"),
-  },
-  {
-    key: '8',
-    icon: <FileText size={18} />,
-    label: 'Site Plans',
-     onClick: () => router.push("/site/siteplans"),
-  },
-  {
-    key: '9',
-    icon: <FileCheck size={18} />,
-    label: 'Task Board',
-     onClick: () => router.push("/site/taskboard"),
+     onClick: () => router.push("/admin/dashboard"),
   },
  
 ];
