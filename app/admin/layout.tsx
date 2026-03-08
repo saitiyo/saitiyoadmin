@@ -42,6 +42,18 @@ const items:MenuItemType[] = [
     label: 'Dashboard',
      onClick: () => router.push("/admin/dashboard"),
   },
+  {
+    key: '2',
+    icon: <LayoutDashboard size={18} />,
+    label: 'Countries',
+     onClick: () => router.push("/admin/dashboard/countries"),
+  },
+  {
+    key: '3',
+    icon: <LayoutDashboard size={18} />,
+    label: 'Projects',
+     onClick: () => router.push("/admin/dashboard/projects"),
+  },
  
 ];
 
