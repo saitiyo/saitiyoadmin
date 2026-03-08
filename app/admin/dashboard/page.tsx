@@ -45,8 +45,8 @@ const Page = () => {
      <div className="w-full min-h-screen bg-white p-5">
       <div className="flex justify-between">
         <DashboardCard title="Users" content={stats ? stats.totalUsers : 0}/>
-        <DashboardCard title="Businesses" content={stats ? stats.totalBusinesses : 0}/>
-        <DashboardCard title="Products" content={stats ? stats.totalPoducts:0}/>
+        <DashboardCard title="Projects" content={stats ? stats.totalBusinesses : 0}/>
+        <DashboardCard title="Sites" content={stats ? stats.totalPoducts:0}/>
         <DashboardCard title="Sales" content={stats ? stats.totalSles : 0}/>
       </div>
         </div>
