@@ -25,7 +25,7 @@ const UploadComponent = ({
 
   return (
     <CldUploadWidget
-      uploadPreset="pbwhmlbn"
+      uploadPreset="saitiyoapp"
       onSuccess={(result:any)=>{
         onUpload(result?.info.secure_url)
       }}

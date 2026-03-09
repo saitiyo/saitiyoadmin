@@ -69,7 +69,7 @@ const CountriesPage = () => {
       key: 'flag',
       render:(data:any)=>(
         <div className="w-auth h-auto">
-           <Image  src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Flag_of_Uganda.svg/500px-Flag_of_Uganda.svg.png" width={50} height={50} alt="flag" />
+           <Image  src={data.flagUri} width={50} height={50} alt="flag" />
         </div>
       )
     },
@@ -96,6 +96,7 @@ const CountriesPage = () => {
         <Divider/>
          <Spacer height={20} />
           <Table
+            rowKey="id" // Replace "id" with the actual unique field name in your data
             columns={_columns}
             dataSource={countries}
             pagination={false}

@@ -3,7 +3,16 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    domains: ['upload.wikimedia.org'], // Add your image domains here
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com', // Standard Cloudinary host
+      },
+      {
+        protocol: 'https',
+        hostname: 'non-none', // To stop the immediate crash from the broken URL
+      },
+    ],
   },
 };
 
