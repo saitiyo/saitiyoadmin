@@ -6,19 +6,22 @@ import { useQuery } from '@apollo/client/react';
 import { useRouter } from 'next/navigation';
 import CustomButton from '@/components/CustomButton/CustomButton';
 import { useEffect } from 'react';
+import { renderToHTML } from 'next/dist/server/render';
+import Image from 'next/image';
 
 
 export const GET_PROJECTS = gql`
-    query Projects {
-    projects {
-        id
+    query GetSites {
+      getSites {
         name
         logoUrl
         status
         daysLeft
         progress
         notificationCount
-    }
+        endDate
+        _id
+      }
 }
 `
 
@@ -31,8 +34,8 @@ const ProjectsPage = () => {
     const [projects,setProjects] = React.useState<any>([])
 
       useEffect(()=>{
-        if(data && data.projects){
-           setProjects(data.projects)
+        if(data && data.getSites){
+           setProjects(data.getSites)
         }
       },[data])
 
@@ -56,6 +59,11 @@ const ProjectsPage = () => {
         title: 'logoUrl',
         dataIndex: 'logoUrl',
         key: 'logoUrl',
+        render:(data:any)=>(
+          <div className="w-auth h-auto">
+            <Image src={data} alt="logo" width={50} height={50} className=""/>
+          </div>
+        )
       },
       {
         title: 'status',
@@ -80,13 +88,6 @@ const ProjectsPage = () => {
 
             <Col xs={12} sm={12} md={6}  style={{display:"flex",alignItems:"center"}}>
               
-            </Col>
-
-            <Col xs={0} sm={0} md={6}  style={{display:"flex",alignItems:"center"}}>
-                <CustomButton 
-                   title='Add Project'
-                   onClick={()=> router.push("/admin/dashboard/projects/add")}
-                 />
             </Col>
         </Row>
     <Table dataSource={projects} columns={columns} />
