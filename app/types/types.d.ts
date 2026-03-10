@@ -14,3 +14,9 @@
     id: string;
   };
 }
+
+interface CreateProjectData {
+  createProject: {
+    id: string;
+  };
+}
